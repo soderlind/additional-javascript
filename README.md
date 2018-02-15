@@ -1,4 +1,4 @@
-# Additional JavaScript
+# Additional JavaScript for WordPress Customizer
 
 <img src="assets/aj.gif" />
 
