@@ -28,11 +28,7 @@ add_action( 'init', __NAMESPACE__ . '\register_post_type_javascript', 0 );
 add_action( 'wp_head', __NAMESPACE__ . '\soderlind_custom_javascript_cb', 110 );
 add_action( 'customize_register', __NAMESPACE__ . '\register_additional_javascript' );
 add_action( 'customize_preview_init', __NAMESPACE__ . '\customize_preview_additional_javascript' );
-
-
-function customize_preview_additional_javascript() {
-	wp_enqueue_script( 'customize-preview-additional-javascript', plugins_url( '/js/additional-javascript-preview.js' , __FILE__ ), array( 'customize-preview', 'jquery' ), rand(), true );
-}
+add_action( 'customize_controls_enqueue_scripts', __NAMESPACE__ . '\on_customize_controls_enqueue_scripts' );
 
 
 function register_post_type_javascript() {
@@ -298,3 +294,17 @@ function soderlind_update_custom_javascript_post( $javascript, $args = array() )
 	return get_post( $r );
 }
 
+function customize_preview_additional_javascript() {
+	$handle = 'customize-preview-additional-javascript';
+	$src    = plugins_url( '/js/additional-javascript-preview.js', __FILE__ );
+	$deps   = [ 'customize-preview', 'jquery' ];
+	wp_enqueue_script( $handle, $src, $deps, rand(), true );
+}
+
+function on_customize_controls_enqueue_scripts() {
+	$suffix = function_exists( 'is_rtl' ) && is_rtl() ? '-rtl' : '';
+	$handle = "custom-javascript${suffix}";
+	$src    = plugins_url( "/css/customize-controls-custom-javascript${suffix}.css", __FILE__ );
+	$deps   = [ 'customize-controls' ];
+	wp_enqueue_style( $handle, $src, $deps );
+}

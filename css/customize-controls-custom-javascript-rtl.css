@@ -1,0 +1,52 @@
+/**
+ * Code Editor Control and Custom JavaScript Section
+ *
+ * Modifications to the Section Container to make the textarea full-width and
+ * full-height, if the control is the only control in the section.
+ */
+
+#sub-accordion-section-custom_javascript .customize-control-notifications-container {
+	margin-bottom: 15px;
+}
+
+#customize-control-custom_javascript textarea {
+	display: block;
+	height: 500px;
+}
+
+.customize-section-description-container + #customize-control-custom_javascript .customize-control-title {
+	margin-right: 12px;
+}
+
+.customize-section-description-container + #customize-control-custom_javascript:last-child textarea {
+	border-left: 0;
+	border-right: 0;
+	height: calc( 100vh - 185px );
+	resize: none;
+}
+
+.customize-section-description-container + #customize-control-custom_javascript:last-child {
+	margin-right: -12px;
+	width: 299px;
+	width: calc( 100% + 24px );
+	margin-bottom: -12px;
+}
+
+.customize-section-description-container + #customize-control-custom_javascript:last-child .CodeMirror {
+	height: calc( 100vh - 185px );
+}
+
+.customize-section-description-container + #customize-control-custom_javascript:last-child .customize-control-notifications-container {
+	margin-right: 12px;
+	margin-left: 12px;
+}
+
+@media screen and ( max-width: 640px ) {
+	.customize-section-description-container + #customize-control-custom_javascript:last-child {
+		margin-left: 0;
+	}
+
+	.customize-section-description-container + #customize-control-custom_javascript:last-child textarea {
+		height: calc( 100vh - 140px );
+	}
+}
