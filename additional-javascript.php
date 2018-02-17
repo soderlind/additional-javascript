@@ -53,10 +53,10 @@ function register_post_type_javascript() {
 				'delete_published_posts' => 'edit_theme_options',
 				'delete_private_posts'   => 'edit_theme_options',
 				'delete_others_posts'    => 'edit_theme_options',
-				'edit_post'              => 'edit_css',
-				'edit_posts'             => 'edit_css',
-				'edit_others_posts'      => 'edit_css',
-				'edit_published_posts'   => 'edit_css',
+				'edit_post'              => 'unfiltered_html',
+				'edit_posts'             => 'unfiltered_html',
+				'edit_others_posts'      => 'unfiltered_html',
+				'edit_published_posts'   => 'unfiltered_html',
 				'read_post'              => 'read',
 				'read_private_posts'     => 'read',
 				'publish_posts'          => 'edit_theme_options',
@@ -94,7 +94,7 @@ function register_additional_javascript( $wp_customize ) {
 	require_once dirname( __FILE__ ) . '/class-custom-javascript-control.php';
 	$custom_javascript_setting = new Soderlind_Customize_Custom_JavaScript_Setting(
 		$wp_customize, sprintf( 'custom_javascript[%s]', get_stylesheet() ), array(
-			'capability' => 'edit_css',
+			'capability' => 'unfiltered_html',
 			'default'    => '',
 		)
 	);
