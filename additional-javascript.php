@@ -9,7 +9,8 @@
  *
  * @wordpress-plugin
  * Plugin Name: Additional JavaScript
- * Plugin URI:  https://example.com/plugin-name
+ * Plugin URI:  https://github.com/soderlind/additional-javascript
+ * GitHub Plugin URI: https://github.com/soderlind/additional-javascript
  * Description: Add additional JavaScript using the WordPress Customizer.
  * Version:     0.0.1
  * Author:      Per Soderlind
