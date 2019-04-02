@@ -77,7 +77,7 @@ function soderlind_custom_javascript_cb() {
 	if ( $javascript || is_customize_preview() ) {
 		?>
 		<script id="soderlind-custom-javascript">
-			<?php echo strip_tags( $javascript ); // ?>
+			<?php echo $javascript; // ?>
 		</script>
 		<?php
 	}
