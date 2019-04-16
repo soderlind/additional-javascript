@@ -95,7 +95,7 @@ function register_additional_javascript( $wp_customize ) {
 	require_once dirname( __FILE__ ) . '/class-custom-javascript-control.php';
 	$custom_javascript_setting = new Soderlind_Customize_Custom_JavaScript_Setting(
 		$wp_customize, sprintf( 'custom_javascript[%s]', get_stylesheet() ), array(
-			'capability' => 'unfiltered_html',
+			'capability' => apply_filters( 'soderlind_custom_javascript_capability', 'unfiltered_html' ),
 			'default'    => '',
 		)
 	);
