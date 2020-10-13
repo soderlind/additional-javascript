@@ -19,7 +19,7 @@ You know the drill.
 - Click on Upload Plugin button found on top left corner of page
 - Select the downloaded .zip file
 
-The plugin is also available via wppackagist as `soderlind/additional-javascript`
+Or add the plugin to your composer file using `composer require "soderlind/additional-javascript"`
 
 # Copyright and License
 
