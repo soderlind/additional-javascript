@@ -4,11 +4,11 @@
 
 ## About
 
-**Additional JavaScript for WordPress Customizer** lets you add JavaScript code using the WordPress Customizer.
+**Additional JavaScript for WordPress Customizer** lets you add JavaScript code, to the front-end, using the WordPress Customizer.
 
 ## Note
 
-You need to have the `edit_css` capability to add JavaScript. `edit_css` has the same capability as [unfiltered_html](https://wordpress.org/support/article/roles-and-capabilities/#unfiltered_html)
+You need to have the `edit_css` capability to use the plugin.  `edit_css` is similar to the [unfiltered_html](https://wordpress.org/support/article/roles-and-capabilities/#unfiltered_html) capability.
 
 ## Installation
 
