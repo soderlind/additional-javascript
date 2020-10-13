@@ -1,10 +1,25 @@
 # Additional JavaScript for WordPress Customizer
 
-<img src="assets/aj.gif" />
+<img src="assets/additional-javascript.png" />
 
-## About etc.
+## About
 
-tba
+**Additional JavaScript for WordPress Customizer** lets you add JavaScript code using the WordPress Customizer.
+
+## Note
+
+You need to have the `edit_css` capability to add JavaScript. `edit_css` has the same capability as [unfiltered_html](https://wordpress.org/support/article/roles-and-capabilities/#unfiltered_html)
+
+## Installation
+
+You know the drill.
+
+- [Download the plugin](https://github.com/soderlind/additional-javascript/archive/master.zip)
+- Go to Plugins > Add New.
+- Click on Upload Plugin button found on top left corner of page
+- Select the downloaded .zip file
+
+The plugin is also available via wppackagist as `soderlind/additional-javascript`
 
 # Copyright and License
 
