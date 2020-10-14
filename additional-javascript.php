@@ -12,7 +12,7 @@
  * Plugin URI:  https://github.com/soderlind/additional-javascript
  * GitHub Plugin URI: https://github.com/soderlind/additional-javascript
  * Description: Add additional JavaScript using the WordPress Customizer.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      Per Soderlind
  * Author URI:  https://soderlind.no
  * Text Domain: additional-javascript
@@ -31,7 +31,12 @@ add_action( 'customize_register', __NAMESPACE__ . '\register_additional_javascri
 add_action( 'customize_preview_init', __NAMESPACE__ . '\customize_preview_additional_javascript' );
 add_action( 'customize_controls_enqueue_scripts', __NAMESPACE__ . '\on_customize_controls_enqueue_scripts' );
 
-function default_js_template() {
+/**
+ * Add a default JavaScript code.
+ *
+ * @return string
+ */
+function default_js_template() : string {
 	return <<<EOTEMPLATE
 (function( $ ) {
 
@@ -43,14 +48,20 @@ function default_js_template() {
 EOTEMPLATE;
 }
 
+/**
+ * Register cpt JavaScript.
+ *
+ * @return void
+ */
 function register_post_type_javascript() {
 
 	register_post_type(
-		'custom_javascript', array(
-			'labels'           => array(
+		'custom_javascript',
+		[
+			'labels'           => [
 				'name'          => __( 'Custom JavaScript' ),
 				'singular_name' => __( 'Custom JavaScript' ),
-			),
+			],
 			'public'           => false,
 			'hierarchical'     => false,
 			'rewrite'          => false,
@@ -58,8 +69,8 @@ function register_post_type_javascript() {
 			'delete_with_user' => false,
 			'can_export'       => true,
 			// '_builtin'         => true, /* internal use only. don't use this when registering your own post type. */
-			'supports'         => array( 'title', 'revisions' ),
-			'capabilities'     => array(
+			'supports'         => [ 'title', 'revisions' ],
+			'capabilities'     => [
 				'delete_posts'           => 'edit_theme_options',
 				'delete_post'            => 'edit_theme_options',
 				'delete_published_posts' => 'edit_theme_options',
@@ -72,8 +83,8 @@ function register_post_type_javascript() {
 				'read_post'              => 'read',
 				'read_private_posts'     => 'read',
 				'publish_posts'          => 'edit_theme_options',
-			),
-		)
+			],
+		]
 	);
 }
 
@@ -88,37 +99,47 @@ function soderlind_custom_javascript_cb() {
 	if ( $javascript || is_customize_preview() ) {
 		?>
 		<script id="soderlind-custom-javascript">
-			<?php echo $javascript; // ?>
+			<?php echo $javascript; ?>
 		</script>
 		<?php
 	}
 }
 
-
-function register_additional_javascript( $wp_customize ) {
+/**
+ * Add section, settings and control.
+ *
+ * @param \WP_Customize_Manager $wp_customize
+ * @return void
+ */
+function register_additional_javascript( \WP_Customize_Manager $wp_customize ) {
 	$wp_customize->add_section(
-		'custom_javascript', array(
+		'custom_javascript',
+		[
 			'title'    => _x( 'Additional JavaScript', 'customizer menu', 'dss-wp' ),
 			'priority' => 999,
-		)
+		]
 	);
 
 	require_once dirname( __FILE__ ) . '/class-custom-javascript-control.php';
 	$custom_javascript_setting = new Soderlind_Customize_Custom_JavaScript_Setting(
-		$wp_customize, sprintf( 'custom_javascript[%s]', get_stylesheet() ), array(
+		$wp_customize,
+		sprintf( 'custom_javascript[%s]', get_stylesheet() ),
+		[
 			'capability' => 'unfiltered_html',
 			'default'    => default_js_template(),
-		)
+		]
 	);
 
 	$wp_customize->add_setting( $custom_javascript_setting );
 	$control = new \WP_Customize_Code_Editor_Control(
-		$wp_customize, 'custom_javascript', array(
+		$wp_customize,
+		'custom_javascript',
+		[
 			'label'     => 'Custom Javascript',
 			'code_type' => 'application/javascript',
-			'settings'  => array( 'default' => $custom_javascript_setting->id ),
+			'settings'  => [ 'default' => $custom_javascript_setting->id ],
 			'section'   => 'custom_javascript', // Site Identity section
-		)
+		]
 	);
 	$wp_customize->add_control( $control );
 }
@@ -131,12 +152,12 @@ function register_additional_javascript( $wp_customize ) {
  * @param string $stylesheet Optional. A theme object stylesheet name. Defaults to the current theme.
  * @return WP_Post|null The custom_javascript post or null if none exists.
  */
-function soderlind_get_custom_javascript_post( $stylesheet = '' ) {
+function soderlind_get_custom_javascript_post( string $stylesheet = '' ) {
 	if ( empty( $stylesheet ) ) {
 		$stylesheet = get_stylesheet();
 	}
 
-	$custom_javascript_query_vars = array(
+	$custom_javascript_query_vars = [
 		'post_type'              => 'custom_javascript',
 		'post_status'            => get_post_stati(),
 		'name'                   => sanitize_title( $stylesheet ),
@@ -146,7 +167,7 @@ function soderlind_get_custom_javascript_post( $stylesheet = '' ) {
 		'update_post_meta_cache' => false,
 		'update_post_term_cache' => false,
 		'lazy_load_term_meta'    => false,
-	);
+	];
 
 	$post = null;
 	if ( get_stylesheet() === $stylesheet ) {
@@ -195,13 +216,13 @@ function soderlind_get_custom_javascript( $stylesheet = '' ) {
 	}
 
 	/**
- * Filters the Custom JavaScript Output into the <head>.
- *
- * @since 4.7.0
- *
- * @param string $javascript    JavaScript pulled in from the Custom JavaScript CPT.
- * @param string $stylesheet    The theme stylesheet name.
- */
+	 * Filters the Custom JavaScript Output into the <head>.
+	 *
+	 * @since 4.7.0
+	 *
+	 * @param string $javascript    JavaScript pulled in from the Custom JavaScript CPT.
+	 * @param string $stylesheet    The theme stylesheet name.
+	 */
 	$javascript = apply_filters( 'soderlind_get_custom_javascript', $javascript, $stylesheet );
 
 	return $javascript;
@@ -223,18 +244,19 @@ function soderlind_get_custom_javascript( $stylesheet = '' ) {
  * }
  * @return WP_Post|WP_Error Post on success, error on failure.
  */
-function soderlind_update_custom_javascript_post( $javascript, $args = array() ) {
+function soderlind_update_custom_javascript_post( $javascript, $args = [] ) {
 	$args = wp_parse_args(
-		$args, array(
+		$args,
+		[
 			'preprocessed' => '',
 			'stylesheet'   => get_stylesheet(),
-		)
+		]
 	);
 
-	$data = array(
+	$data = [
 		'javascript'   => $javascript,
 		'preprocessed' => $args['preprocessed'],
-	);
+	];
 
 	/**
 	* Filters the `javascript` (`post_content`) and `preprocessed` (`post_content_filtered`) args for a `custom_javascript` post being updated.
@@ -271,14 +293,14 @@ function soderlind_update_custom_javascript_post( $javascript, $args = array() )
 	*/
 	$data = apply_filters( 'soderlind_update_custom_javascript_data', $data, array_merge( $args, compact( 'javascript' ) ) );
 
-	$post_data = array(
+	$post_data = [
 		'post_title'            => $args['stylesheet'],
 		'post_name'             => sanitize_title( $args['stylesheet'] ),
 		'post_type'             => 'custom_javascript',
 		'post_status'           => 'publish',
 		'post_content'          => $data['javascript'],
 		'post_content_filtered' => $data['preprocessed'],
-	);
+	];
 
 	// Update post if it already exists, otherwise create a new one.
 	$post = soderlind_get_custom_javascript_post( $args['stylesheet'] );
@@ -306,6 +328,11 @@ function soderlind_update_custom_javascript_post( $javascript, $args = array() )
 	return get_post( $r );
 }
 
+/**
+ * Load script for customizer preview.
+ *
+ * @return void
+ */
 function customize_preview_additional_javascript() {
 	$handle = 'customize-preview-additional-javascript';
 	$src    = plugins_url( '/js/additional-javascript-preview.js', __FILE__ );
@@ -313,6 +340,11 @@ function customize_preview_additional_javascript() {
 	wp_enqueue_script( $handle, $src, $deps, rand(), true );
 }
 
+/**
+ * Load script for customizer control.
+ *
+ * @return void
+ */
 function on_customize_controls_enqueue_scripts() {
 	$suffix = function_exists( 'is_rtl' ) && is_rtl() ? '-rtl' : '';
 	$handle = "custom-javascript${suffix}";

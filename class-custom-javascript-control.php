@@ -1,5 +1,6 @@
 <?php
 namespace Soderlind\Customizer;
+
 /**
  * From customize/class-wp-customize-custom-css-setting.php, adjusted for javascript
  */
@@ -56,7 +57,7 @@ final class Soderlind_Customize_Custom_JavaScript_Setting extends \WP_Customize_
 	 *                                      theme mod or option name.
 	 * @param array                $args    Setting arguments.
 	 */
-	public function __construct( $manager, $id, $args = array() ) {
+	public function __construct( $manager, $id, $args = [] ) {
 		parent::__construct( $manager, $id, $args );
 		if ( 'custom_javascript' !== $this->id_data['base'] ) {
 			throw new Exception( 'Expected custom_javascript id_base.' );
@@ -79,7 +80,7 @@ final class Soderlind_Customize_Custom_JavaScript_Setting extends \WP_Customize_
 			return false;
 		}
 		$this->is_previewed = true;
-		add_filter( 'soderlind_get_custom_javascript', array( $this, 'filter_previewed_wp_get_custom_javascript' ), 9, 2 );
+		add_filter( 'soderlind_get_custom_javascript', [ $this, 'filter_previewed_wp_get_custom_javascript' ], 9, 2 );
 		return true;
 	}
 
@@ -152,7 +153,7 @@ final class Soderlind_Customize_Custom_JavaScript_Setting extends \WP_Customize_
 		$validity = new \WP_Error();
 
 		// if ( preg_match( '#</?\w+#', $javascript ) ) {
-		// 	$validity->add( 'illegal_markup', __( 'Markup is not allowed in JavaScript.' ) );
+		// $validity->add( 'illegal_markup', __( 'Markup is not allowed in JavaScript.' ) );
 		// }
 
 		if ( empty( $validity->errors ) ) {
@@ -176,9 +177,10 @@ final class Soderlind_Customize_Custom_JavaScript_Setting extends \WP_Customize_
 		}
 
 		$r = soderlind_update_custom_javascript_post(
-			$javascript, array(
+			$javascript,
+			[
 				'stylesheet' => $this->stylesheet,
-			)
+			]
 		);
 
 		if ( $r instanceof WP_Error ) {
