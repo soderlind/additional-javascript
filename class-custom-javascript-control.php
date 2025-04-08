@@ -35,7 +35,7 @@ final class Soderlind_Customize_Custom_JavaScript_Setting extends \WP_Customize_
 	 * @since 4.7.0
 	 * @var string
 	 */
-	public $capability = 'edit_css';
+	public $capability = 'unfiltered_html';
 
 	/**
 	 * Stylesheet
@@ -46,26 +46,26 @@ final class Soderlind_Customize_Custom_JavaScript_Setting extends \WP_Customize_
 	public $stylesheet = '';
 
 	/**
-	 * WP_Customize_Custom_JavaScript_Setting constructor.
+	 * Soderlind_Customize_Custom_JavaScript_Setting constructor.
 	 *
 	 * @since 4.7.0
 	 *
-	 * @throws Exception If the setting ID does not match the pattern `custom_javascript[$stylesheet]`.
+	 * @throws \Exception If the setting ID does not match the pattern `custom_javascript[$stylesheet]`.
 	 *
-	 * @param WP_Customize_Manager $manager The Customize Manager class.
-	 * @param string               $id      An specific ID of the setting. Can be a
-	 *                                      theme mod or option name.
-	 * @param array                $args    Setting arguments.
+	 * @param \WP_Customize_Manager $manager The Customize Manager class.
+	 * @param string                $id      An specific ID of the setting. Can be a
+	 *                                       theme mod or option name.
+	 * @param array                 $args    Setting arguments.
 	 */
 	public function __construct( $manager, $id, $args = [] ) {
 		parent::__construct( $manager, $id, $args );
-		if ( 'custom_javascript' !== $this->id_data['base'] ) {
-			throw new Exception( 'Expected custom_javascript id_base.' );
+		if ( 'custom_javascript' !== $this->id_data[ 'base' ] ) {
+			throw new \Exception( 'Setting ID must have custom_javascript as its base.' );
 		}
-		if ( 1 !== count( $this->id_data['keys'] ) || empty( $this->id_data['keys'][0] ) ) {
-			throw new Exception( 'Expected single stylesheet key.' );
+		if ( 1 !== count( $this->id_data[ 'keys' ] ) || empty( $this->id_data[ 'keys' ][ 0 ] ) ) {
+			throw new \Exception( 'Setting ID must contain a single stylesheet key.' );
 		}
-		$this->stylesheet = $this->id_data['keys'][0];
+		$this->stylesheet = $this->id_data[ 'keys' ][ 0 ];
 	}
 
 	/**
@@ -121,7 +121,7 @@ final class Soderlind_Customize_Custom_JavaScript_Setting extends \WP_Customize_
 				return $post_value;
 			}
 		}
-		$id_base = $this->id_data['base'];
+		$id_base = $this->id_data[ 'base' ];
 		$value   = '';
 		$post    = soderlind_get_custom_javascript_post( $this->stylesheet );
 		if ( $post ) {
@@ -178,7 +178,7 @@ final class Soderlind_Customize_Custom_JavaScript_Setting extends \WP_Customize_
 
 		$r = soderlind_update_custom_javascript_post(
 			$javascript,
-			[
+			[ 
 				'stylesheet' => $this->stylesheet,
 			]
 		);
