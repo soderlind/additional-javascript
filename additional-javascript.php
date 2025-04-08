@@ -12,7 +12,7 @@
  * Plugin URI:  https://github.com/soderlind/additional-javascript
  * GitHub Plugin URI: https://github.com/soderlind/additional-javascript
  * Description: Add additional JavaScript using the WordPress Customizer.
- * Version:     1.0.1
+ * Version:     1.1.0
  * Author:      Per Soderlind
  * Author URI:  https://soderlind.no
  * Text Domain: additional-javascript
@@ -32,19 +32,23 @@ add_action( 'customize_preview_init', __NAMESPACE__ . '\customize_preview_additi
 add_action( 'customize_controls_enqueue_scripts', __NAMESPACE__ . '\on_customize_controls_enqueue_scripts' );
 
 /**
+ * Plugin version - used for cache-busting assets
+ */
+define( 'ADDITIONAL_JAVASCRIPT_VERSION', '1.1.0' );
+
+/**
  * Add a default JavaScript code.
  *
  * @return string
  */
 function default_js_template(): string {
 	return <<<EOTEMPLATE
-(function( $ ) {
+// Run code when the DOM is ready
+document.addEventListener('DOMContentLoaded', function () {
 
-    "use strict";
+	// JavaScript code here.
 
-    // JavaScript code here.
-
-})(jQuery);
+});
 EOTEMPLATE;
 }
 
@@ -306,7 +310,7 @@ function soderlind_update_custom_javascript_post( $javascript, $args = [] ) {
 	$post = soderlind_get_custom_javascript_post( $args[ 'stylesheet' ] );
 	if ( $post ) {
 		$post_data[ 'ID' ] = $post->ID;
-		$r               = wp_update_post( wp_slash( $post_data ), true );
+		$r                 = wp_update_post( wp_slash( $post_data ), true );
 	} else {
 		$r = wp_insert_post( wp_slash( $post_data ), true );
 
@@ -334,21 +338,27 @@ function soderlind_update_custom_javascript_post( $javascript, $args = [] ) {
  * @return void
  */
 function customize_preview_additional_javascript() {
-	$handle = 'customize-preview-additional-javascript';
+	$handle = 'additional-javascript-preview';
 	$src    = plugins_url( '/js/additional-javascript-preview.js', __FILE__ );
 	$deps   = [ 'customize-preview' ];
-	wp_enqueue_script( $handle, $src, $deps, rand(), true );
+
+	if ( file_exists( plugin_dir_path( __FILE__ ) . 'js/additional-javascript-preview.js' ) ) {
+		wp_enqueue_script( $handle, $src, $deps, ADDITIONAL_JAVASCRIPT_VERSION, true );
+	}
 }
 
 /**
- * Load script for customizer control.
+ * Load styles for customizer control.
  *
  * @return void
  */
 function on_customize_controls_enqueue_scripts() {
-	$suffix = function_exists( 'is_rtl' ) && is_rtl() ? '-rtl' : '';
-	$handle = "custom-javascript${suffix}";
+	$suffix = is_rtl() ? '-rtl' : '';
+	$handle = 'additional-javascript-controls' . $suffix;
 	$src    = plugins_url( "/css/customize-controls-custom-javascript${suffix}.css", __FILE__ );
 	$deps   = [ 'customize-controls' ];
-	wp_enqueue_style( $handle, $src, $deps );
+
+	if ( file_exists( plugin_dir_path( __FILE__ ) . "css/customize-controls-custom-javascript${suffix}.css" ) ) {
+		wp_enqueue_style( $handle, $src, $deps, ADDITIONAL_JAVASCRIPT_VERSION );
+	}
 }
