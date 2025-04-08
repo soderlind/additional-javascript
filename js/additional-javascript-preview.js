@@ -1,22 +1,22 @@
 /*
  * Script run inside a Customizer preview frame.
  */
-(function(exports, $) {
-	var api = wp.customize;
+(function(exports) {
+	const api = wp.customize;
 
 	api.settingPreviewHandlers = {
 		/**
-		 * Preview changes to custom css.
+		 * Preview changes to custom javascript.
 		 *
-		 * @param {string} value Custom CSS..
+		 * @param {string} value Custom JavaScript.
 		 * @returns {void}
 		 */
 		custom_javascript: function(value) {
-			$("#soderlind-custom-javascript").text(value);
+			document.getElementById('soderlind-custom-javascript').textContent = value;
 		},
 	};
 
-	$(function() {
+	document.addEventListener('DOMContentLoaded', function() {
 		api(
 			`custom_javascript[${api.settings.theme.stylesheet}]`,
 			function(setting) {
@@ -26,4 +26,4 @@
 
 		api.trigger("preview-ready");
 	});
-})(wp, jQuery);
+})(wp);

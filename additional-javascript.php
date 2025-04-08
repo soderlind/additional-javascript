@@ -36,7 +36,7 @@ add_action( 'customize_controls_enqueue_scripts', __NAMESPACE__ . '\on_customize
  *
  * @return string
  */
-function default_js_template() : string {
+function default_js_template(): string {
 	return <<<EOTEMPLATE
 (function( $ ) {
 
@@ -57,8 +57,8 @@ function register_post_type_javascript() {
 
 	register_post_type(
 		'custom_javascript',
-		[
-			'labels'           => [
+		[ 
+			'labels'           => [ 
 				'name'          => __( 'Custom JavaScript' ),
 				'singular_name' => __( 'Custom JavaScript' ),
 			],
@@ -70,7 +70,7 @@ function register_post_type_javascript() {
 			'can_export'       => true,
 			// '_builtin'         => true, /* internal use only. don't use this when registering your own post type. */
 			'supports'         => [ 'title', 'revisions' ],
-			'capabilities'     => [
+			'capabilities'     => [ 
 				'delete_posts'           => 'edit_theme_options',
 				'delete_post'            => 'edit_theme_options',
 				'delete_published_posts' => 'edit_theme_options',
@@ -114,7 +114,7 @@ function soderlind_custom_javascript_cb() {
 function register_additional_javascript( \WP_Customize_Manager $wp_customize ) {
 	$wp_customize->add_section(
 		'custom_javascript',
-		[
+		[ 
 			'title'    => _x( 'Additional JavaScript', 'customizer menu', 'dss-wp' ),
 			'priority' => 999,
 		]
@@ -124,7 +124,7 @@ function register_additional_javascript( \WP_Customize_Manager $wp_customize ) {
 	$custom_javascript_setting = new Soderlind_Customize_Custom_JavaScript_Setting(
 		$wp_customize,
 		sprintf( 'custom_javascript[%s]', get_stylesheet() ),
-		[
+		[ 
 			'capability' => 'unfiltered_html',
 			'default'    => default_js_template(),
 		]
@@ -134,7 +134,7 @@ function register_additional_javascript( \WP_Customize_Manager $wp_customize ) {
 	$control = new \WP_Customize_Code_Editor_Control(
 		$wp_customize,
 		'custom_javascript',
-		[
+		[ 
 			'label'     => 'Custom Javascript',
 			'code_type' => 'application/javascript',
 			'settings'  => [ 'default' => $custom_javascript_setting->id ],
@@ -157,7 +157,7 @@ function soderlind_get_custom_javascript_post( string $stylesheet = '' ) {
 		$stylesheet = get_stylesheet();
 	}
 
-	$custom_javascript_query_vars = [
+	$custom_javascript_query_vars = [ 
 		'post_type'              => 'custom_javascript',
 		'post_status'            => get_post_stati(),
 		'name'                   => sanitize_title( $stylesheet ),
@@ -182,9 +182,9 @@ function soderlind_get_custom_javascript_post( string $stylesheet = '' ) {
 			$query = new \WP_Query( $custom_javascript_query_vars );
 			$post  = $query->post;
 			/*
-				* Cache the lookup. See soderlind_update_custom_javascript_post().
-				* @todo This should get cleared if a custom_javascript post is added/removed.
-				*/
+			 * Cache the lookup. See soderlind_update_custom_javascript_post().
+			 * @todo This should get cleared if a custom_javascript post is added/removed.
+			 */
 			set_theme_mod( 'custom_javascript_post_id', $post ? $post->ID : -1 );
 		}
 	} else {
@@ -247,71 +247,71 @@ function soderlind_get_custom_javascript( $stylesheet = '' ) {
 function soderlind_update_custom_javascript_post( $javascript, $args = [] ) {
 	$args = wp_parse_args(
 		$args,
-		[
+		[ 
 			'preprocessed' => '',
 			'stylesheet'   => get_stylesheet(),
 		]
 	);
 
-	$data = [
+	$data = [ 
 		'javascript'   => $javascript,
-		'preprocessed' => $args['preprocessed'],
+		'preprocessed' => $args[ 'preprocessed' ],
 	];
 
 	/**
-	* Filters the `javascript` (`post_content`) and `preprocessed` (`post_content_filtered`) args for a `custom_javascript` post being updated.
-	*
-	* This filter can be used by plugin that offer JavaScript pre-processors, to store the original
-	* pre-processed JavaScript in `post_content_filtered` and then store processed JavaScript in `post_content`.
-	* When used in this way, the `post_content_filtered` should be supplied as the setting value
-	* instead of `post_content` via a the `customize_value_custom_javascript` filter, for example:
-	*
-	* <code>
-	* add_filter( 'customize_value_custom_javascript', function( $value, $setting ) {
-	*     $post = soderlind_get_custom_javascript_post( $setting->stylesheet );
-	*     if ( $post && ! empty( $post->post_content_filtered ) ) {
-	*         $javascript = $post->post_content_filtered;
-	*     }
-	*     return $javascript;
-	* }, 10, 2 );
-	* </code>
-	*
-	* @since 4.7.0
-	* @param array $data {
-	*     Custom JavaScript data.
-	*
-	*     @type string $javascript          JavaScript stored in `post_content`.
-	*     @type string $preprocessed Pre-processed JavaScript stored in `post_content_filtered`. Normally empty string.
-	* }
-	* @param array $args {
-	*     The args passed into `wp_update_custom_javascript_post()` merged with defaults.
-	*
-	*     @type string $javascript          The original JavaScript passed in to be updated.
-	*     @type string $preprocessed The original preprocessed JavaScript passed in to be updated.
-	*     @type string $stylesheet   The stylesheet (theme) being updated.
-	* }
-	*/
+	 * Filters the `javascript` (`post_content`) and `preprocessed` (`post_content_filtered`) args for a `custom_javascript` post being updated.
+	 *
+	 * This filter can be used by plugin that offer JavaScript pre-processors, to store the original
+	 * pre-processed JavaScript in `post_content_filtered` and then store processed JavaScript in `post_content`.
+	 * When used in this way, the `post_content_filtered` should be supplied as the setting value
+	 * instead of `post_content` via a the `customize_value_custom_javascript` filter, for example:
+	 *
+	 * <code>
+	 * add_filter( 'customize_value_custom_javascript', function( $value, $setting ) {
+	 *     $post = soderlind_get_custom_javascript_post( $setting->stylesheet );
+	 *     if ( $post && ! empty( $post->post_content_filtered ) ) {
+	 *         $javascript = $post->post_content_filtered;
+	 *     }
+	 *     return $javascript;
+	 * }, 10, 2 );
+	 * </code>
+	 *
+	 * @since 4.7.0
+	 * @param array $data {
+	 *     Custom JavaScript data.
+	 *
+	 *     @type string $javascript          JavaScript stored in `post_content`.
+	 *     @type string $preprocessed Pre-processed JavaScript stored in `post_content_filtered`. Normally empty string.
+	 * }
+	 * @param array $args {
+	 *     The args passed into `wp_update_custom_javascript_post()` merged with defaults.
+	 *
+	 *     @type string $javascript          The original JavaScript passed in to be updated.
+	 *     @type string $preprocessed The original preprocessed JavaScript passed in to be updated.
+	 *     @type string $stylesheet   The stylesheet (theme) being updated.
+	 * }
+	 */
 	$data = apply_filters( 'soderlind_update_custom_javascript_data', $data, array_merge( $args, compact( 'javascript' ) ) );
 
-	$post_data = [
-		'post_title'            => $args['stylesheet'],
-		'post_name'             => sanitize_title( $args['stylesheet'] ),
+	$post_data = [ 
+		'post_title'            => $args[ 'stylesheet' ],
+		'post_name'             => sanitize_title( $args[ 'stylesheet' ] ),
 		'post_type'             => 'custom_javascript',
 		'post_status'           => 'publish',
-		'post_content'          => $data['javascript'],
-		'post_content_filtered' => $data['preprocessed'],
+		'post_content'          => $data[ 'javascript' ],
+		'post_content_filtered' => $data[ 'preprocessed' ],
 	];
 
 	// Update post if it already exists, otherwise create a new one.
-	$post = soderlind_get_custom_javascript_post( $args['stylesheet'] );
+	$post = soderlind_get_custom_javascript_post( $args[ 'stylesheet' ] );
 	if ( $post ) {
-		$post_data['ID'] = $post->ID;
+		$post_data[ 'ID' ] = $post->ID;
 		$r               = wp_update_post( wp_slash( $post_data ), true );
 	} else {
 		$r = wp_insert_post( wp_slash( $post_data ), true );
 
 		if ( ! is_wp_error( $r ) ) {
-			if ( get_stylesheet() === $args['stylesheet'] ) {
+			if ( get_stylesheet() === $args[ 'stylesheet' ] ) {
 				set_theme_mod( 'custom_javascript_post_id', $r );
 			}
 
@@ -336,7 +336,7 @@ function soderlind_update_custom_javascript_post( $javascript, $args = [] ) {
 function customize_preview_additional_javascript() {
 	$handle = 'customize-preview-additional-javascript';
 	$src    = plugins_url( '/js/additional-javascript-preview.js', __FILE__ );
-	$deps   = [ 'customize-preview', 'jquery' ];
+	$deps   = [ 'customize-preview' ];
 	wp_enqueue_script( $handle, $src, $deps, rand(), true );
 }
 
