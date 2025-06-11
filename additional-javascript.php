@@ -25,6 +25,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
 
+define( 'ADDITIONAL_JAVASCRIPT_VERSION', '1.1.0' );
+define( 'ADDITIONAL_JAVASCRIPT_FILE', __FILE__ );
+define( 'ADDITIONAL_JAVASCRIPT_PATH', plugin_dir_path( __FILE__ ) );
+
+require_once ADDITIONAL_JAVASCRIPT_PATH . 'vendor/autoload.php';
+/**
+ * Load the plugin updater class.
+ */
+require_once dirname( __FILE__ ) . '/class-additional-javascript-updater.php';
+// Initialize the updater.
+$additional_javascript_updater = new Additional_JavaScript_Updater();
+
 add_action( 'init', __NAMESPACE__ . '\register_post_type_javascript', 0 );
 add_action( 'wp_head', __NAMESPACE__ . '\soderlind_custom_javascript_cb', 110 );
 add_action( 'customize_register', __NAMESPACE__ . '\register_additional_javascript' );
@@ -34,7 +46,8 @@ add_action( 'customize_controls_enqueue_scripts', __NAMESPACE__ . '\on_customize
 /**
  * Plugin version - used for cache-busting assets
  */
-define( 'ADDITIONAL_JAVASCRIPT_VERSION', '1.1.0' );
+
+
 
 /**
  * Add a default JavaScript code.
