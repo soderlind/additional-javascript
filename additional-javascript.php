@@ -12,7 +12,7 @@
  * Plugin URI:  https://github.com/soderlind/additional-javascript
  * GitHub Plugin URI: https://github.com/soderlind/additional-javascript
  * Description: Add additional JavaScript using the WordPress Customizer.
- * Version:     1.1.0
+ * Version:     1.1.1
  * Author:      Per Soderlind
  * Author URI:  https://soderlind.no
  * Text Domain: additional-javascript
@@ -25,9 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
 
-define( 'ADDITIONAL_JAVASCRIPT_VERSION', '1.1.0' );
+define( 'ADDITIONAL_JAVASCRIPT_VERSION', '1.1.1' );
 define( 'ADDITIONAL_JAVASCRIPT_FILE', __FILE__ );
-define( 'ADDITIONAL_JAVASCRIPT_PATH', plugin_dir_path( __FILE__ ) );
+define( 'ADDITIONAL_JAVASCRIPT_PATH', plugin_dir_path( ADDITIONAL_JAVASCRIPT_FILE ) );
 
 require_once ADDITIONAL_JAVASCRIPT_PATH . 'vendor/autoload.php';
 /**
