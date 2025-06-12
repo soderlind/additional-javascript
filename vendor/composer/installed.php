@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'soderlind/additional-javascript',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => 'c58d5380923e14135e1ce698db1bf69f3f62308c',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'f75e4faf5bf987362eca6385bb4c10d6dd9dbf9b',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'soderlind/additional-javascript' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'c58d5380923e14135e1ce698db1bf69f3f62308c',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'f75e4faf5bf987362eca6385bb4c10d6dd9dbf9b',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
