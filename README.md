@@ -68,6 +68,9 @@ The JavaScript is added at the end of the `<head>` section of your site with a p
 
 ## Changelog
 
+### 1.1.1
+- Add plugin updater
+
 ### 1.1.0
 - Updated compatibility with WordPress 6.5
 - Code improvements and optimization
