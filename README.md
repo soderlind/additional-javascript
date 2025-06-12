@@ -26,8 +26,8 @@ This plugin restricts JavaScript editing to users with the 'unfiltered_html' cap
 - **Quick Install**
 
    - Download [`additional-javascript.zip`](https://github.com/soderlind/additional-javascript/releases/latest/download/additional-javascript.zip)
-   - Upload via WordPress Network > Plugins > Add New > Upload Plugin
-   - Network activate the plugin.
+   - Upload via  Plugins > Add New > Upload Plugin
+   - Activate the plugin.
 
 - **Composer Install**
 
