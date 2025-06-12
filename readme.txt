@@ -27,9 +27,16 @@ This plugin restricts JavaScript editing to users with the 'unfiltered_html' cap
 
 == Installation ==
 
-1. Upload the 'additional-javascript' folder to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to Customizer → Additional JavaScript to add your custom JavaScript
+1. **Quick Install**
+
+   * Download [`additional-javascript.zip`](https://github.com/soderlind/additional-javascript/releases/latest/download/additional-javascript.zip)
+   * Upload via  Plugins > Add New > Upload Plugin
+   * Activate the plugin.
+
+2. **Updates**
+   * Plugin updates are handled automatically via GitHub. No need to manually download and install updates.
+
+
 
 == Usage ==
 
