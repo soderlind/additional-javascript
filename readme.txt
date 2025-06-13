@@ -4,7 +4,7 @@ Tags: javascript, customizer, code, custom code, js
 Donate link: https://paypal.me/PerSoderlind
 Requires at least: 6.5
 Tested up to: 6.8
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 Requires PHP: 8.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -61,6 +61,12 @@ No, the plugin is designed to be lightweight and only loads the necessary script
 The JavaScript is added at the end of the `<head>` section of your site with a priority of 110.
 
 == Changelog ==
+
+= 1.1.2 =
+* Minor code improvements
+
+= 1.1.1 =
+* Add plugin updater
 
 = 1.1.0 =
 * Updated compatibility with WordPress 6.5
