@@ -12,7 +12,7 @@
  * Plugin URI:  https://github.com/soderlind/additional-javascript
  * GitHub Plugin URI: https://github.com/soderlind/additional-javascript
  * Description: Add additional JavaScript using the WordPress Customizer.
- * Version:     1.1.2
+ * Version:     1.1.3
  * Author:      Per Soderlind
  * Author URI:  https://soderlind.no
  * Text Domain: additional-javascript
@@ -30,12 +30,16 @@ define( 'ADDITIONAL_JAVASCRIPT_FILE', __FILE__ );
 define( 'ADDITIONAL_JAVASCRIPT_PATH', plugin_dir_path( ADDITIONAL_JAVASCRIPT_FILE ) );
 
 require_once ADDITIONAL_JAVASCRIPT_PATH . 'vendor/autoload.php';
-/**
- * Load the plugin updater class.
- */
-require_once dirname( __FILE__ ) . '/class-additional-javascript-updater.php';
-// Initialize the updater.
-$additional_javascript_updater = new Additional_JavaScript_Updater();
+// Include the generic updater class
+require_once dirname( __FILE__ ) . '/class-github-plugin-updater.php';
+// Initialize the updater with configuration.
+$additional_javascript_updater = \Soderlind\WordPress\GitHub_Plugin_Updater::create_with_assets(
+	'https://github.com/soderlind/additional-javascript',
+	ADDITIONAL_JAVASCRIPT_FILE,
+	'additional-javascript',
+	'/additional-javascript\.zip/',
+	'main'
+);
 
 add_action( 'init', __NAMESPACE__ . '\register_post_type_javascript', 0 );
 add_action( 'wp_head', __NAMESPACE__ . '\soderlind_custom_javascript_cb', 110 );
