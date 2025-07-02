@@ -3,7 +3,7 @@
         'name' => 'soderlind/additional-javascript',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'f75e4faf5bf987362eca6385bb4c10d6dd9dbf9b',
+        'reference' => '22f23630ecfe19338e339f4c91e96d87e550ae88',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'soderlind/additional-javascript' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'f75e4faf5bf987362eca6385bb4c10d6dd9dbf9b',
+            'reference' => '22f23630ecfe19338e339f4c91e96d87e550ae88',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

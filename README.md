@@ -68,6 +68,9 @@ The JavaScript is added at the end of the `<head>` section of your site with a p
 
 ## Changelog
 
+### 1.1.4
+* Enhanced class loading for the GitHub plugin updater.
+
 ### 1.1.3
 * Use generic [WordPress Plugin GitHub Updater](https://github.com/soderlind/wordpress-plugin-gitHub-updater?tab=readme-ov-file#wordpress-plugin-github-updater)
 
