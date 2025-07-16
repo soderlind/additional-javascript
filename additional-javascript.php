@@ -12,7 +12,7 @@
  * Plugin URI:  https://github.com/soderlind/additional-javascript
  * GitHub Plugin URI: https://github.com/soderlind/additional-javascript
  * Description: Add additional JavaScript using the WordPress Customizer.
- * Version:     1.1.4
+ * Version:     1.1.5
  * Author:      Per Soderlind
  * Author URI:  https://soderlind.no
  * Text Domain: additional-javascript
@@ -374,10 +374,10 @@ function customize_preview_additional_javascript() {
 function on_customize_controls_enqueue_scripts() {
 	$suffix = is_rtl() ? '-rtl' : '';
 	$handle = 'additional-javascript-controls' . $suffix;
-	$src    = plugins_url( "/css/customize-controls-custom-javascript${suffix}.css", __FILE__ );
+	$src    = plugins_url( "/css/customize-controls-custom-javascript{$suffix}.css", __FILE__ );
 	$deps   = [ 'customize-controls' ];
 
-	if ( file_exists( plugin_dir_path( __FILE__ ) . "css/customize-controls-custom-javascript${suffix}.css" ) ) {
+	if ( file_exists( plugin_dir_path( __FILE__ ) . "css/customize-controls-custom-javascript{$suffix}.css" ) ) {
 		wp_enqueue_style( $handle, $src, $deps, ADDITIONAL_JAVASCRIPT_VERSION );
 	}
 }
