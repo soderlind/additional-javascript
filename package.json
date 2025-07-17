@@ -21,7 +21,6 @@
 		"type": "git",
 		"url": "git+https://github.com/soderlind/additional-javascript.git"
 	},
-	"keywords": [],
 	"author": "Per Søderlind",
 	"license": "GPLv2",
 	"bugs": {
