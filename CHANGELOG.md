@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [1.1.6] - 2025-08-11
 
 ### Fixed
-- Inline the custom javascript using `	()`
+- Inline the custom javascript using `wp_print_inline_script_tag()`
 - Ensure the script is printed in the footer
 
 ## [1.1.5] - 2025-07-16
