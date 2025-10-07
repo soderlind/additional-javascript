@@ -36,7 +36,7 @@ This plugin restricts JavaScript editing to users with the 'unfiltered_html' cap
    ```
 
 - **Updates**
-   * Plugin updates are handled automatically via GitHub. No need to manually download and install updates.
+   * Plugin [updates are handled automatically](https://github.com/soderlind/wordpress-plugin-github-updater#readme) via GitHub. No need to manually download and install updates.
 
 ## Usage
 
